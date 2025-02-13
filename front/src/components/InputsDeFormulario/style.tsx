@@ -6,13 +6,12 @@ export const Container = styled.View`
     gap: 8px;
 `
 export const InputContainer = styled.View`
-    width: 100%;
     gap: 10px;
     flex-direction: row;
     padding: 10px 0px;
     align-items: center;
 
-    //margin: 0px 10px 10px 10px;
+    margin: 0px 10px 10px 10px;
     border-bottom-width: 1.5px;
     border-bottom-color: rgba(5, 61, 88, 0.80);
 `
@@ -33,10 +32,12 @@ export const ImagemEstilizada = styled.Image`
 `
 
 export const TextoEstilizado = styled.Text`
+    width: fit-content;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
     color: #154962;
-    text-decoration: underline;
+    border-bottom-width: 2px;
+    border-bottom-color: #154962;
 `
