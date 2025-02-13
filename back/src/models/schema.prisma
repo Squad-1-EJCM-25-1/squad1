@@ -7,17 +7,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//Dúvidas
-//qual nome que eu dou para chave estrangeira?
-//[]
-//enum em categoria, e statusCompra
-//pet tem racas
-//db.Date
-
 
 //Models
-//Particionamento Vertical para Herança
-
+//Particionamento Vertical para Herança de Usuário (Filhos: Cliente e Vendedor)
 model Usuario {
 
   idUsuario       Int         @id         @default(autoincrement())
@@ -26,12 +18,12 @@ model Usuario {
   hash            String
   salt            String
   dataRegistro    DateTime                @default(now())
-  imagemURL       String
+  imagemURL       String?
 
-  cliente         Cliente[]
-  vendedor        Vendedor[]
-  endereco        Endereco[]
-  telefones       Telefones[]
+  cliente         Cliente?
+  vendedor        Vendedor?
+  endereco        Endereco?
+  telefones       Telefones?
 
 }
 
@@ -42,7 +34,7 @@ model Cliente {
 
   idCliente       Int         @id
 
-  cliente Usuario @relation(fields: [idCliente], references: [idUsuario], onDelete: Cascade)
+  usuario Usuario @relation(fields: [idCliente], references: [idUsuario], onDelete: Cascade)
 
   favoritos   Favorita[]
   avaliacoes  Avalia[]
@@ -50,7 +42,7 @@ model Cliente {
   conversas   Conversa[]
   pets        Pet[]
 
-  carrinho    Carrinho[]
+  produtosCarrinho    Carrinho[]
 
 }
 
@@ -60,7 +52,7 @@ model Vendedor {
 
   idVendedor      Int         @id
 
-  vendedor Usuario @relation(fields: [idVendedor], references: [idUsuario], onDelete: Cascade)
+  usuario Usuario @relation(fields: [idVendedor], references: [idUsuario], onDelete: Cascade)
 
   produtos  Produto[]
   conversas Conversa[]
@@ -90,7 +82,7 @@ model Mensagem {
   idCliente     Int
   idVendedor    Int
 
-  mensagem  Conversa @relation(fields: [idCliente, idVendedor], references: [idCliente, idVendedor], onDelete: Cascade)
+  conversa Conversa @relation(fields: [idCliente, idVendedor], references: [idCliente, idVendedor], onDelete: Cascade)
 
 }
 
@@ -101,7 +93,7 @@ model Endereco {
   endereco        String                      @db.VarChar(63)
   UF              String                      @db.Char(2)
   bairro          String                      @db.VarChar(15)
-  complemento     String                      @db.VarChar(63)
+  complemento     String?                     @db.VarChar(63)
 
   idUsuario       Int         @unique
 
@@ -115,10 +107,24 @@ model Telefones {
 
   idTelefones     Int      @id     @default(autoincrement())
   celular         String           @db.Char(11)
+  residencial     String?          @db.Char(10)
 
-  idUsuario       Int
+  idUsuario       Int      @unique
 
   usuario Usuario @relation(fields: [idUsuario], references: [idUsuario], onDelete: Cascade)
+
+}
+
+enum Categoria {
+
+  Cachorro
+  Gato
+  Pássaro
+  Peixe
+  Réptil
+  Alimento
+  Acessório
+  Outro
 
 }
 
@@ -126,11 +132,11 @@ model Produto {
 
   idProduto     Int       @id       @default(autoincrement())
   nome          String              @db.VarChar(63)
-  descricao     String              @db.VarChar(120)
+  descricao     String?             @db.VarChar(120)
   preco         Decimal             @db.Money
-  categoria     String              @db.VarChar(15)
+  categoria     Categoria?
   quantidade    Int
-  imagemURL     String
+  imagemURL     String?
 
   idVendedor    Int
 
@@ -139,15 +145,15 @@ model Produto {
   favoritos   Favorita[]
   avaliacoes  Avalia[]
   compras     Compra[]
-  carrinho    Carrinho[]
+  produtosCarrinho    Carrinho[]
 
 }
 
 //Relações Usuário-Produto
 model Favorita {
 
-  idCliente     Int      @unique
-  idProduto     Int      @unique
+  idCliente     Int
+  idProduto     Int
 
   @@id([idCliente, idProduto])
 
@@ -158,11 +164,11 @@ model Favorita {
 
 model Avalia {
 
-  comentario    String                     @db.VarChar(120)
+  comentario    String?        @db.VarChar(120)
   nota          Int
 
-  idCliente     Int         @unique
-  idProduto     Int         @unique
+  idCliente     Int
+  idProduto     Int
 
   @@id([idCliente, idProduto])
 
@@ -171,16 +177,33 @@ model Avalia {
 
 }
 
+enum StatusCompra {
+
+  Pendente
+  Enviado
+  Entregue
+  Cancelado
+
+}
+
+enum FormaPagamento {
+
+  Cartão
+  PIX
+  Boleto
+
+}
+
 model Compra {
 
-  dataCompra      DateTime      @default(now())
-  statusCompra    String        @db.VarChar(15)
-  formaPagamento  String        @db.VarChar(15)
-  valorTotal      Decimal       @db.Money
+  dataCompra      DateTime        @default(now())
+  statusCompra    StatusCompra    @default(Pendente)
+  formaPagamento  FormaPagamento        
+  valorTotal      Decimal         @db.Money
 
-  idCliente       Int           @unique
-  idProduto       Int           @unique           
-  idCompra        Int           @unique         @default(autoincrement())
+  idCliente       Int             @unique
+  idProduto       Int             @unique           
+  idCompra        Int             @unique         @default(autoincrement())
 
   @@id([idCliente, idProduto, idCompra])
 
@@ -193,8 +216,8 @@ model Carrinho {
 
   quantidade    Int
 
-  idCliente     Int       @unique
-  idProduto     Int       @unique
+  idCliente     Int
+  idProduto     Int
 
   @@id([idCliente, idProduto])
 
@@ -203,41 +226,51 @@ model Carrinho {
 
 }
 
+enum Especie {
+
+  Cachorro
+  Gato
+  Peixe
+  Pássaro
+  Coelho
+  Hamster
+  Tartaruga
+  Outro
+
+}
+
 //Outras Entidades
 model Pet {
 
   idPet           Int         @unique       @default(autoincrement())
   nome            String                    @db.VarChar(15) 
-  especie         String                    @db.VarChar(31)
+  especie         Especie                   
   raca            String                    @db.VarChar(31)
-  idade           Int
-  peso            Decimal
-  deficiencia     String                    @db.VarChar(31)
+  idade           Int?
+  peso            Decimal?
+  deficiencia     String?                    @db.VarChar(31)
 
-  idCliente       Int         @unique
+  idCliente       Int
   
   @@id([idPet, idCliente])
 
   dono      Cliente       @relation(fields: [idCliente], references: [idCliente], onDelete: Cascade)
 
-
-  donoVacinacao Vacinacao[] @relation(name: "donoPetRelacao")
-  petVacina Vacinacao[] @relation(name: "petRelacao")
+  vacinas Vacinacao[]
 }
 
 model Vacinacao {
 
   nomeVacina      String                    @db.VarChar(31)
-  peso            Decimal
+  peso            Decimal?
 
   data            DateTime                  @db.Date
 
-  idCliente       Int          @unique 
-  idPet           Int          @unique
+  idCliente       Int 
+  idPet           Int
 
   @@id([data, idCliente, idPet])
 
-  donoPet   Pet     @relation(name:"donoPetRelacao", fields: [idCliente], references: [idCliente], onDelete: Cascade)
-  pet       Pet     @relation(name:"petRelacao", fields: [idPet], references: [idPet], onDelete: Cascade)
+  pet Pet @relation(fields: [idPet, idCliente], references: [idPet, idCliente], onDelete: Cascade)
 
 }
