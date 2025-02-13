@@ -6,6 +6,7 @@
     "schema": "src/models/schema.prisma"
   },
   "scripts": {
+    "start": "npx ts-node-dev --transpile-only --no-notify server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
