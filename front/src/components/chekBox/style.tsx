@@ -31,7 +31,14 @@ export const Texto = styled.Text`
     color: #154962;
     text-align: center;
 `
+
 export const Imagem = styled.Image`
     width: 100%;
     height: 100%;
+`
+
+export const MensagemDeErro = styled.Text`
+    align-self: center;
+    color: #ff375b;
+    margin-top: -36px;
 `

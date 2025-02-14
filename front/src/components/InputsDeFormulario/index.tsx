@@ -1,38 +1,47 @@
 import React from 'react'
-import { Container, ImagemEstilizada, InputContainer, InputEstilizado, TextoEstilizado } from './style'
+import { Container, ImagemEstilizada, InputContainer, TextoEstilizado, MensagemDeErro, InputEstilizado } from './style'
+import { formatadorDeCPF } from '../../utils/validadorDeCPF';
+import { Controller } from 'react-hook-form';
 
 interface InputProps {
     texto?: string,
     textoDePreenchimento: string,
-    tipo: "texto" | "email" | "senha"
     srcImg: string,
+    inputSeguro: boolean,
+    control: any,
+    error?: string,
+    name: string,
+    mascara?: string,
+    tipo?: 'cpf',
 }
 
-const Input = ({ texto, textoDePreenchimento, tipo, srcImg }: InputProps) => {
-    let tipoDoInput: 'default' | 'email-address';
-    let inputSeguro = false;
-
-    if (tipo === "texto")
-        tipoDoInput = "default"
-    else if (tipo === "email")
-        tipoDoInput = "email-address"
-    else {
-        tipoDoInput = "default"
-        inputSeguro = true
-    }
+const Input = (Props: InputProps) => {
 
     return (
-        <Container>
-            <TextoEstilizado>{texto ? texto : ''}</TextoEstilizado>
-            <InputContainer>
-                <ImagemEstilizada source={srcImg} />
-                <InputEstilizado
-                    placeholder={textoDePreenchimento}
-                    keyboardType={tipoDoInput}
-                    secureTextEntry={inputSeguro}
-                />
-            </InputContainer>
-        </Container>
+        <>
+            <Controller
+                control={Props.control}
+                name={Props.name}
+                render={({ field: { onChange, value = "" } }) => (
+                    <Container>
+                        <TextoEstilizado>
+                            {Props.texto ? Props.texto : ''}
+                        </TextoEstilizado>
+                        <InputContainer>
+                            <ImagemEstilizada source={Props.srcImg} />
+                            <InputEstilizado
+                                placeholder={Props.textoDePreenchimento}
+                                secureTextEntry={Props.inputSeguro}
+                                value={value}
+                                onChangeText={Props.tipo ? (text: string) => onChange(formatadorDeCPF(text)) : onChange}
+                                mask={Props.mascara || undefined}
+                            />
+                        </InputContainer>
+                    </Container>
+                )}
+            />
+            {Props.error && <MensagemDeErro>{Props.error}</MensagemDeErro>}
+        </>
     )
 }
 
