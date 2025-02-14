@@ -41,3 +41,9 @@ export const TextoEstilizado = styled.Text`
     border-bottom-width: 2px;
     border-bottom-color: #154962;
 `
+
+export const MensagemDeErro = styled.Text`
+    align-self: flex-start;
+    color: #ff375b;
+    margin-top: -8px;
+`

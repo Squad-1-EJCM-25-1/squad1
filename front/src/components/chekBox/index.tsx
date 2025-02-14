@@ -1,26 +1,37 @@
 import React from 'react'
-import { CheckBoxContainer, CheckBoxEstilizado, Imagem, Texto }
+import { CheckBoxContainer, CheckBoxEstilizado, Imagem, MensagemDeErro, Texto }
     from './style'
+import { Controller } from 'react-hook-form'
 
 interface CheckBoxProps {
-    verificado: boolean,
     texto: string,
-    funcaoAoPressionar: () => void,
+    control: any,
+    name: string,
+    error?: string,
 }
 
-const CheckBox = ({ verificado, texto, funcaoAoPressionar }: CheckBoxProps) => {
+const CheckBox = ({ texto, control, name, error }: CheckBoxProps) => {
     return (
-        <CheckBoxContainer
-            onPress={funcaoAoPressionar}
-            activeOpacity={1}
-        >
-            <CheckBoxEstilizado verificado={verificado}>
-                <Imagem
-                    source={verificado ? require('../../assets/checkbox/checkedBox.png') : require('../../assets/checkbox/uncheckedBox.png')}
-                />
-            </CheckBoxEstilizado>
-            <Texto>{texto}</Texto>
-        </CheckBoxContainer>
+        <>
+            <Controller
+                control={control}
+                name={name}
+                render={({ field: { onChange, value = false } }) => (
+                    < CheckBoxContainer
+                        onPress={() => onChange(!value)}
+                        activeOpacity={1}
+                    >
+                        <CheckBoxEstilizado verificado={value}>
+                            <Imagem
+                                source={value ? require('../../assets/checkbox/checkedBox.png') : require('../../assets/checkbox/uncheckedBox.png')}
+                            />
+                        </CheckBoxEstilizado>
+                        <Texto>{texto}</Texto>
+                    </CheckBoxContainer >
+                )}
+            />
+            {error && <MensagemDeErro>{error}</MensagemDeErro>}
+        </>
     )
 }
 
