@@ -19,6 +19,7 @@ model Usuario {
   salt            String
   dataRegistro    DateTime                @default(now())
   imagemURL       String?
+  ehVendedor      Boolean                 @default(false)
 
   cliente         Cliente?
   vendedor        Vendedor?
