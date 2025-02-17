@@ -29,7 +29,7 @@ model Usuario {
 
 model Cliente {
 
-  CPF             String      @unique     @db.Char(11)
+  cpf             String      @unique     @db.Char(11)
   fidelidade      Boolean                 @default(false) 
 
   idCliente       Int         @id
@@ -48,7 +48,7 @@ model Cliente {
 
 model Vendedor {
 
-  CNPJ            String      @unique     @db.Char(14)
+  cnpj            String      @unique     @db.Char(14)
 
   idVendedor      Int         @id
 
