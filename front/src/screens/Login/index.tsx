@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
+import { useRouter } from 'expo-router'
+
 
 const schema = yup.object({
   email: yup.string().email("Email Inválido").required("Informe seu email"),
@@ -15,12 +17,17 @@ const schema = yup.object({
 
 const Login = () => {
 
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const { control, handleSubmit, formState: { errors }, reset } = useForm({
     resolver: yupResolver(schema)
   })
 
+  const rota = useRouter()
+
   const SubmeterFormulario = (data: any) => {
+    // useContext para passar informação 
     console.log(data)
+    reset()
+    rota.replace('(tabs)')
   }
 
   return (
@@ -60,11 +67,11 @@ const Login = () => {
         </InputContainer>
 
         <SenhaEsquecidaContainer
-          style={{
-            textShadowOffset: { width: 0, height: 4 },
-            textShadowRadius: 4,
-            textShadowColor: "rgba(0, 0, 0, 0.25)",
-          }}
+        // style={{
+        //   textShadowOffset: { width: 0, height: 4 },
+        //   textShadowRadius: 4,
+        //   textShadowColor: "rgba(0, 0, 0, 0.25)",
+        // }}
         >
           Esqueceu a senha?
         </SenhaEsquecidaContainer>
