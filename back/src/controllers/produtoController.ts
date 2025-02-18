@@ -3,13 +3,12 @@ import { Request, Response } from 'express';
 const prisma = new PrismaClient();
 
 class ProdutoController {
-
   // Criar Produto
-public async criarProduto(req: Request, res: Response) {
+  public async criarProduto(req: Request, res: Response) {
     const { nome, descricao, preco, categoria, quantidade, imagemURL, idVendedor} = req.body;
     try {
-      const novoProduto = await prisma.produto.create({
-        data: { nome, descricao, preco, categoria, quantidade, imagemURL, idVendedor},
+    const novoProduto = await prisma.produto.create({
+      data: { nome, descricao, preco, categoria, quantidade, imagemURL, idVendedor},
       });
       res.status(201).json(novoProduto);
     } catch (error) {
@@ -63,9 +62,9 @@ public async criarProduto(req: Request, res: Response) {
 
   // Atualiza Produto
   public async atualizarProduto(req: Request, res: Response) {
-    const { id } = req.params;
-    const {nome, descricao, preco, categoria, quantidade, imagemURL, idVendedor } = req.body;
-    try {
+  const { id } = req.params;
+  const {nome, descricao, preco, categoria, quantidade, imagemURL, idVendedor } = req.body;
+  try {
       const produtoAtualizado = await prisma.produto.update({
         where: { idProduto: Number(id) },
         data: {nome, descricao, preco, categoria, quantidade, imagemURL, idVendedor},
@@ -90,5 +89,5 @@ public async criarProduto(req: Request, res: Response) {
   }
 }
 
-export default ProdutoController;
+export default new ProdutoController();
 
