@@ -4,7 +4,7 @@ import auth from "../config/auth"
 
 const prisma = new PrismaClient();
 
-class usuarioController {
+class UsuarioController {
 
     public async criarUsuario(req: Request, res: Response){
 
@@ -136,8 +136,6 @@ class usuarioController {
 
     }
 
-//devo evitar que possa atualizar os dois?
-
     public async atualizarUsuario(req: Request, res: Response){
         
         const {idUsuario} = req.params;
@@ -227,4 +225,4 @@ class usuarioController {
 
 }
 
-export default new usuarioController();
+export default new UsuarioController();
