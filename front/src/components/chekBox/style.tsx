@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-interface CheckBoxProps {
+interface CheckBoxxProps {
     verificado: boolean,
 }
 
@@ -12,7 +12,7 @@ export const CheckBoxContainer = styled.TouchableOpacity`
     flex-direction: row;
 `
 
-export const CheckBoxEstilizado = styled.View<CheckBoxProps>`
+export const CheckBoxEstilizado = styled.View<CheckBoxxProps>`
     width: 24px;
     height: 24px;
     align-items: center;
@@ -20,7 +20,7 @@ export const CheckBoxEstilizado = styled.View<CheckBoxProps>`
 
     border-radius: 4px;
     border-width: 1.5px;
-    border-color: ${({ verificado }) => verificado === true ? '#0271A0' : '#154962'};
+    border-color: ${({ verificado }) => (verificado ? '#0271A0' : '#154962')};
 `
 
 export const Texto = styled.Text`

@@ -10,6 +10,8 @@ import * as yup from 'yup'
 import CheckBox from '../../components/chekBox'
 import Botao from '../../components/botões'
 
+import { useRouter } from 'expo-router'
+
 
 const schema = yup.object({
     nome: yup.string().min(3, "Seu nome deve ter pelo menos 6 caracteres").required("Informe seu nome"),
@@ -26,9 +28,12 @@ const Cadastro = () => {
         resolver: yupResolver(schema)
     })
 
+    const rota = useRouter()
+
     const SubmeterFormulario = (data: any) => {
         console.log(data)
         reset()
+        rota.replace('(tabs)')
     }
 
     return (
