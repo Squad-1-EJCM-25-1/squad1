@@ -1,9 +1,16 @@
 import { Router } from 'express';
 
-
 //controllers
 
-import usuarioController from '../controllers/usuarioController';
+import UsuarioController from '../controllers/usuarioController';
+
+//configs
+
+import { photoUpload } from '../config/uploader';
+
+//middlewares
+
+import { MsgUploader } from '../middlewares/msgUploader';
 
 
 const router = Router();
@@ -13,16 +20,24 @@ const router = Router();
 // se precisarmos do token em alguma rota, utilizar 
 // passport.authenticate("jwt", {session: false}) como middleware da rota
 
-router.post("/usuario", usuarioController.criarUsuario);
+router.post("/usuario", UsuarioController.criarUsuario);
 
-router.delete("/usuario/:idUsuario", usuarioController.deletarUsuario);
+router.delete("/usuario/:idUsuario", UsuarioController.deletarUsuario);
 
-router.put("/usuario/:idUsuario", usuarioController.atualizarUsuario);
+router.put("/usuario/:idUsuario", UsuarioController.atualizarUsuario);
 
-router.get("/usuario/:idUsuario", usuarioController.obterUsuario);
+router.get("/usuario/:idUsuario", UsuarioController.obterUsuario);
 
-router.get("/usuarios", usuarioController.obterUsuarios)
+router.get("/usuarios", UsuarioController.obterUsuarios)
 
-router.get("/login", usuarioController.login);
+router.get("/login", UsuarioController.login);
+
+// imagens
+
+// imagem de usuário
+router.post("/usuario/imagem", photoUpload.single("image"), MsgUploader.enviarMensagem)
+
+// imagem de produto
+router.post("/produto/imagem", photoUpload.single("image"), MsgUploader.enviarMensagem)
 
 export default router;
