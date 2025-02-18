@@ -1,10 +1,19 @@
 import React from 'react'
 import { LocalizacaoProps } from '../../types/types'
 import { Icone, TextoContainer, Texto, Container } from './style'
+import BotaoBolinha from '../botaoBolinha'
+import { useRouter } from 'expo-router'
 
-const Localizacao = ({ rua, numero, complemento }: LocalizacaoProps) => {
+const Localizacao = ({ rua, numero, complemento, botao }: LocalizacaoProps) => {
+
+    const navegacao = useRouter()
+
+    const navegar = () => {
+        navegacao.push('carrinho')
+    }
+
     return (
-        <Container activeOpacity={0.85}>
+        <Container activeOpacity={0.80}>
             <Icone source={require('../../assets/localizacao.png')} />
 
             <TextoContainer>
@@ -13,6 +22,7 @@ const Localizacao = ({ rua, numero, complemento }: LocalizacaoProps) => {
             </TextoContainer>
 
             <Icone source={require('../../assets/seta.png')} />
+            {botao && <BotaoBolinha direita={10} topo={-10} img={require('../../assets/carrinho.png')} aoPressionar={navegar} />}
         </Container>
     )
 }

@@ -1,7 +1,5 @@
 import React from 'react'
-import Home from '../../src/screens/HomeScreen'
-import Cadastro from '../../src/screens/Cadastro'
-import Login from '../../src/screens/Login'
+import Home from '../../../src/screens/HomeScreen'
 
 const HomeScreen = () => {
     return (
