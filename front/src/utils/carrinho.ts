@@ -13,6 +13,7 @@ export const obterCarrinho = (): ProdutosItemProp[] => {
 export const adicionarAoCarrinho = (produto: ProdutosItemProp) => {
     const carrinho = obterCarrinho()
     carrinho.push(produto)
+    console.log(carrinho)
     armazenamento.set(CHAVE_CARRINHO, JSON.stringify(carrinho))
 }
 

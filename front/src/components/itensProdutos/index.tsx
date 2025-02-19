@@ -4,8 +4,21 @@ import { ProdutosItemProp } from '../../types/types'
 import BotaoBolinha from '../botaoBolinha'
 import { formatarPreco } from '../../utils/formatarPreco'
 import { StyleSheet, TouchableOpacity } from 'react-native'
+import { adicionarAoCarrinho } from '../../utils/carrinho'
 
-const ItensProdutos = ({ texto, img, preco }: ProdutosItemProp) => {
+const ItensProdutos = ({ texto, img, preco, id }: ProdutosItemProp) => {
+
+    const produto: ProdutosItemProp = {
+        id: id,
+        img: img,
+        texto: texto,
+        preco: preco
+    }
+
+    const adicionarProdutoAoCarrinho = () => {
+        adicionarAoCarrinho(produto)
+    }
+
     return (
         <TouchableOpacity style={styles.Container}>
             <Imagem source={img} />
@@ -17,10 +30,10 @@ const ItensProdutos = ({ texto, img, preco }: ProdutosItemProp) => {
                     <Moeda>R$</Moeda>
                     <Valor>{formatarPreco(preco)}</Valor>
                     <BotaoBolinha
-                        direita={0}
-                        topo={12.5}
+                        direita={3}
+                        topo={-16}
                         img={require('../../assets/botaoBolinha/cruz.png')}
-                    // falta onPress
+                        aoPressionar={adicionarProdutoAoCarrinho}
                     />
                 </ContainerPreco>
             </Informacoes>

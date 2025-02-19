@@ -2,15 +2,9 @@ import React from 'react'
 import { LocalizacaoProps } from '../../types/types'
 import { Icone, TextoContainer, Texto, Container } from './style'
 import BotaoBolinha from '../botaoBolinha'
-import { useRouter } from 'expo-router'
 
-const Localizacao = ({ rua, numero, complemento, botao }: LocalizacaoProps) => {
+const Localizacao = ({ rua, numero, complemento, botao, navegar }: LocalizacaoProps) => {
 
-    const navegacao = useRouter()
-
-    const navegar = () => {
-        navegacao.push('carrinho')
-    }
 
     return (
         <Container activeOpacity={0.80}>

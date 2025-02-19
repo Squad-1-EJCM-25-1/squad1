@@ -33,5 +33,6 @@ export interface LocalizacaoProps {
     rua: string,
     numero: number,
     complemento: string,
-    botao: boolean
-} 
+    botao: boolean,
+    navegar: () => void
+}

@@ -2,13 +2,14 @@ import styled from "styled-components/native";
 
 interface BotaoProp {
     direita: number;
-    topo: number
+    topo: number,
+    corDeFundo: string
 }
 
 export const BotaoEstilizado = styled.TouchableOpacity`
     width: 35px;
     height: 35px;
-    background-color: #99DFEB;
+    background-color: ${({ corDeFundo }: BotaoProp) => corDeFundo ? corDeFundo : '#99DFEB'};
     align-items: center;
     justify-content: center;
     position: absolute;
