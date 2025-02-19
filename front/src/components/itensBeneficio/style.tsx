@@ -23,10 +23,10 @@ export const Imagem = styled.Image`
     height: 24px;
 `
 
-export const Texto = styled.Text<TextoProp>`
+export const Texto = styled.Text`
     color: #154962;
-    //font-family: Verdana;
-    font-size: ${({ tamanhoDoTexto }) => tamanhoDoTexto > 8 ? '16px' : '20px'};
+    /* font-family: Verdana; */
+    font-size: ${({ tamanhoDoTexto }: TextoProp) => tamanhoDoTexto > 8 ? '16px' : '20px'};
     font-style: normal;
     font-weight: 700;
 `

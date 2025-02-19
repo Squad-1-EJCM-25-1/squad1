@@ -5,7 +5,7 @@ import { Container, Imagem, Texto } from './style'
 const ItensBeneficio = ({ texto, img }: BeneficioItemProp) => {
     return (
         <Container activeOpacity={0.7}>
-            <Imagem source={require(img)} />
+            <Imagem source={img} />
             <Texto tamanhoDoTexto={texto.length}>{texto}</Texto>
         </Container>
     )

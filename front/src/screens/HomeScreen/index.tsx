@@ -2,6 +2,8 @@ import { Container } from "./style"
 import Localizacao from "../../components/localizacao"
 import Logo from "../../components/logo"
 import Carousel from "../../components/Carousel"
+import BeneficioDB from "../../data/beneficios"
+import CategoriaDB from "../../data/categoriasDeAnimais"
 
 const Home = () => {
     return (
@@ -11,12 +13,13 @@ const Home = () => {
                 rua="Diogene"
                 numero={72}
                 complemento="apt 402"
+                botao={true}
             />
-            {/* <Container>
+            <Container>
                 <Carousel
                     espacamentoEntreItens={20}
                     tipo="CategoriasDeAnimais"
-                    urlApi="/"
+                    dados={CategoriaDB}
                 />
 
                 <Carousel
@@ -26,17 +29,17 @@ const Home = () => {
                     espacamentoEntreTituloEProduto={28}
                     pesoDaFonte={600}
                     tamanhoDoTitulo={15}
-                    urlApi="/"
+                    dados={BeneficioDB}
                 />
 
-                <Carousel
+                {/* <Carousel
                     espacamentoEntreItens={20}
                     titulo="Recomendados para você"
                     tipo="Produtos"
                     espacamentoEntreTituloEProduto={30}
                     pesoDaFonte={700}
                     tamanhoDoTitulo={16}
-                    urlApi="/"
+                    dados={ }
                 />
 
                 <Carousel
@@ -46,7 +49,7 @@ const Home = () => {
                     espacamentoEntreTituloEProduto={13}
                     pesoDaFonte={700}
                     tamanhoDoTitulo={16}
-                    urlApi="/"
+                    dados={ }
                 />
 
                 <Carousel
@@ -56,7 +59,7 @@ const Home = () => {
                     espacamentoEntreTituloEProduto={13}
                     pesoDaFonte={700}
                     tamanhoDoTitulo={16}
-                    urlApi="/"
+                    dados={ }
                 />
 
                 <Carousel
@@ -66,9 +69,9 @@ const Home = () => {
                     espacamentoEntreTituloEProduto={13}
                     pesoDaFonte={700}
                     tamanhoDoTitulo={16}
-                    urlApi="/"
-                />
-            </Container> */}
+                    dados={ }
+                /> */}
+            </Container>
         </>
     )
 }

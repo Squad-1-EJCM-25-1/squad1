@@ -47,10 +47,10 @@ router.get("/login", UsuarioController.login);
 // imagens
 
 // imagem de usuário
-router.post("/usuario/imagem", photoUpload.single("image"), MsgUploader.enviarMensagem)
+router.post("/usuario/:id/imagem", photoUpload.single("image"), MsgUploader.enviarMensagem, MsgUploader.inserirImagemURL)
 
 // imagem de produto
-router.post("/produto/imagem", photoUpload.single("image"), MsgUploader.enviarMensagem)
+router.post("/produto/:id/imagem", photoUpload.single("image"), MsgUploader.enviarMensagem, MsgUploader.inserirImagemURL)
 
 
 // Rotas para Produto

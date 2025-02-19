@@ -26,7 +26,7 @@ const storage = multer.diskStorage({
     callBack(null, destinationFolder);
   },
   filename: function (request:Request, file, callBack) {
-    const { id } = request.body;
+    const { id } = request.params;
 
     let prefixo = null;
 

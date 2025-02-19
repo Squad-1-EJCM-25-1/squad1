@@ -8,7 +8,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native'
 const ItensProdutos = ({ texto, img, preco }: ProdutosItemProp) => {
     return (
         <TouchableOpacity style={styles.Container}>
-            <Imagem source={require(img)} />
+            <Imagem source={img} />
             <Informacoes>
                 <NomeDoProduto numberOfLines={1} ellipsizeMode="tail">
                     {texto}
