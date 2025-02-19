@@ -10,7 +10,8 @@ import CompraController from '../controllers/compraController';
 import AvaliaController from '../controllers/avaliaController';
 import mensagemController from '../controllers/mensagemController';
 import ConversaController from '../controllers/conversaController';
-
+import {verificarFidelidade} from '../middlewares/FidelidadeMiddleware';
+import CarrinhoController from '../controllers/carrinhoController';
 
 
 //configs
@@ -37,6 +38,8 @@ router.put("/usuario/:idUsuario", UsuarioController.atualizarUsuario);
 
 router.get("/usuario/:idUsuario", UsuarioController.obterUsuario);
 
+router.get("/usuario/:idUsuario", verificarFidelidade, UsuarioController.obterUsuario);
+
 router.get("/usuarios", UsuarioController.obterUsuarios)
 
 router.get("/login", UsuarioController.login);
@@ -55,7 +58,7 @@ router.post('/produto', ProdutoController.criarProduto);
 
 router.get('/produtos', ProdutoController.selecionarTodosProdutos);
 
-router.get('/produto/:idProduto', ProdutoController.pegarProdutoPorId);
+router.get('/produto/:id', ProdutoController.pegarProdutoPorId);
 
 router.get('/produto/vendedor/:idVendedor', ProdutoController.pegarProdutoPorIdVendedor);
 
@@ -137,5 +140,14 @@ router.get('/conversas/:idCliente/:idVendedor', ConversaController.pegarConversa
 router.put('/conversas/:idCliente/:idVendedor', ConversaController.atualizarConversa);
 
 router.delete('/conversas/:idCliente/:idVendedor', ConversaController.deletarConversa);
+
+// Rotas para Carrinho
+router.post('/carrinho', CarrinhoController.adicionarItem);
+
+router.get('/carrinho/:idCliente', CarrinhoController.obterItens);
+
+router.put('/carrinho/:idCliente/:idProduto', CarrinhoController.atualizarItem);
+
+router.delete('/carrinho/:idCliente/:idProduto', CarrinhoController.deletarItem);
 
 export default router;
