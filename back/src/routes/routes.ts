@@ -8,7 +8,7 @@ import ProdutoController from '../controllers/produtoController';
 import TelefoneController from '../controllers/telefoneController';
 import CompraController from '../controllers/compraController';
 import AvaliaController from '../controllers/avaliaController';
-import MensagemController from '../controllers/mensageController';
+import mensagemController from '../controllers/mensagemController';
 import ConversaController from '../controllers/conversaController';
 
 
@@ -63,7 +63,7 @@ router.put('/produto/:id', ProdutoController.atualizarProduto);
 
 router.delete('/produto/:idProduto', ProdutoController.deletarProduto);
 
-/*// Rotas para Endereço
+// Rotas para Endereço
 
 router.post('/endereco', EnderecoController.criarEndereco);
 
@@ -116,15 +116,15 @@ router.put('/avaliacoes/:idCliente/:idProduto', AvaliaController.atualizarAvalia
 router.delete('/avaliacoes/:idCliente/:idProduto', AvaliaController.deletarAvaliacao);
 
 // Rotas para Mensagem
-router.post('/mensagem', MensagemController.criarMensagem);
+router.post('/mensagem', mensagemController.criarMensagem);
 
-router.get('/mensagens', MensagemController.pegarMensagens);
+router.get('/mensagens', mensagemController.pegarMensagens);
 
-router.get('/mensagens/:idMensagem', MensagemController.pegarMensagemPorId);
+router.get('/mensagens/:idMensagem', mensagemController.pegarMensagemPorId);
 
-router.put('/mensagens/:idMensagem', MensagemController.atualizarMensagem);
+router.put('/mensagens/:idMensagem', mensagemController.atualizarMensagem);
 
-router.delete('/mensagens/:idMensagem', MensagemController.deletarMensagem);
+router.delete('/mensagens/:idMensagem', mensagemController.deletarMensagem);
 
 //Rotas para Conversa
 
@@ -136,6 +136,6 @@ router.get('/conversas/:idCliente/:idVendedor', ConversaController.pegarConversa
 
 router.put('/conversas/:idCliente/:idVendedor', ConversaController.atualizarConversa);
 
-router.delete('/conversas/:idCliente/:idVendedor', ConversaController.deletarConversa);*/
+router.delete('/conversas/:idCliente/:idVendedor', ConversaController.deletarConversa);
 
 export default router;
