@@ -1,0 +1,93 @@
+import {PrismaClient} from "@prisma/client";
+import { Request, Response } from "express";
+const prisma = new PrismaClient();
+
+class vacinacaoController {
+
+//cria um pet
+async criarVacinacao(req:Request, res:Response)
+{
+    const {nomeVacina, especie, data, peso, idPet, idCliente} = req.body;
+    try
+    {
+        // ver se existe o pet para essa vacinacao
+        const acharpet = await prisma.pet.findUnique({
+            where: {idPet:idPet, idCliente:idCliente}
+        });
+        if (!acharpet) {return res.status(404).json({message:"Pet não encontrado!"})}
+
+        const novoVacinacao = await prisma.vacinacao.create(
+            {data: {nomeVacina, especie, data: new Date(data), peso, idPet: Number (idPet), idCliente: Number(idCliente)}})
+            res.status(201).json({message: "vacinacao criada com sucesso", novoVacinacao})
+        
+    }
+    catch(error: any)
+    {
+        res.status(500).json({error: error.message});
+    }
+}
+
+
+
+//acha varios produtos
+async obterpets(req:Request, res:Response)
+{
+    try{
+        const obterpets = await prisma.pet.findMany()
+        res.status(200).json({message: " Pets encontrados com sucesso!", pets:obterpets})
+    }
+    catch(error: any)
+    {res.status(500).json({error: error.message})}
+}
+
+//atualizar pet
+
+
+async atualizarvacinacao(req:Request, res:Response)
+{
+    const{idPet, idCliente} = req.params
+
+    const {nomeVacina, data, peso,} = req.body;
+
+    try
+    {  
+        const acharpet = await prisma.pet.findUnique({
+            where: {idPet:Number(idPet), idCliente: Number(idCliente)}
+        });
+        if (!acharpet) {return res.status(404).json({message:"pet não encontrado!"})}
+
+        const atualizarvacinacao = await prisma.vacinacao.update({
+            data: {nomeVacina, peso, data},
+            where: {idPet: Number(idPet), idCliente: Number(idCliente)}
+        })
+        res.status(200).json({message: " Vacinação atualizada com sucesso!", vacina:atualizarvacinacao})
+    }
+    catch(error: any)
+        {res.status(500).json({error: error.message});
+    }
+}
+
+async deletavacina(req:Request, res:Response) {
+    const {idPet, idCliente} = req.params
+    try
+    {
+        const acharpet = await prisma.pet.findUnique({
+            where: {idPet:Number(idPet), idCliente:Number(idCliente)}
+        });
+        if (!acharpet) {return res.status(404).json({message:"pet não encontrado!"})}
+
+        const deletavacina = await prisma.vacinacao.delete({
+            where: {idPet:Number(idPet), idCliente:Number(idCliente)}
+        
+        })
+        res.status(204).send();
+    }
+    catch(error: any)
+        {res.status(500).json({error: error.message})}
+    
+}
+
+}
+
+
+export const vacinacaocontroller = new vacinacaoController ();
