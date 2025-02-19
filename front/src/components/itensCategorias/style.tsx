@@ -7,10 +7,13 @@ export const Container = styled.TouchableOpacity`
     gap: 6px;
 `
 
-export const Imagem = styled.Image`
+export const Imagem = styled.View`
     width: 120px;
     height: 120px;
     border-radius: 50%;
+    background-color: #154962;
+    align-items: center;
+    justify-content: center;
 `
 
 export const Texto = styled.Text`
@@ -18,5 +21,5 @@ export const Texto = styled.Text`
     font-size: 15px;
     font-style: normal;
     font-weight: 600;
-    //font-family: Poppins;
+    /* font-family: Poppins; */
 `

@@ -1,13 +1,15 @@
+import { ImageSourcePropType } from "react-native"
+
 export interface CategoriaItemProp {
     id: number,
     texto: string,
-    img: string
+    img: ImageSourcePropType
 }
 
 export interface BeneficioItemProp {
     id: number,
-    texto: string,
-    img: string
+    img: ImageSourcePropType,
+    texto: string
 }
 
 export interface ProdutosItemProp {
@@ -24,11 +26,12 @@ export interface CarouselProps {
     tamanhoDoTitulo?: number,
     espacamentoEntreTituloEProduto?: number,
     pesoDaFonte?: number,
-    urlApi: string
+    dados: any[]
 }
 
 export interface LocalizacaoProps {
     rua: string,
     numero: number,
     complemento: string,
+    botao: boolean
 } 
