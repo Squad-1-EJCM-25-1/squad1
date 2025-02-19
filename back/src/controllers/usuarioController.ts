@@ -31,7 +31,7 @@ class UsuarioController {
                     }
                 })
 
-                res.status(201).json({message: "Cliente criado com sucesso!", cliente: cliente})
+                res.status(201).json({message: "Cliente criado com sucesso!", usuario: usuario, cliente: cliente})
                 return;
             }
 
@@ -44,7 +44,7 @@ class UsuarioController {
                     }
                 })
 
-                res.status(201).json({message: "Cliente criado com sucesso!", vendedor: vendedor})
+                res.status(201).json({message: "Vendedor criado com sucesso!", usuario: usuario, vendedor: vendedor})
                 return;
             }
 

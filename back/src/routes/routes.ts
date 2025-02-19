@@ -3,6 +3,15 @@ import { Router } from 'express';
 //controllers
 
 import UsuarioController from '../controllers/usuarioController';
+import EnderecoController from '../controllers/enderecoController';
+import ProdutoController from '../controllers/produtoController';
+import TelefoneController from '../controllers/telefoneController';
+import CompraController from '../controllers/compraController';
+import AvaliaController from '../controllers/avaliaController';
+import mensagemController from '../controllers/mensagemController';
+import ConversaController from '../controllers/conversaController';
+
+
 
 //configs
 
@@ -39,5 +48,94 @@ router.post("/usuario/:id/imagem", photoUpload.single("image"), MsgUploader.envi
 
 // imagem de produto
 router.post("/produto/:id/imagem", photoUpload.single("image"), MsgUploader.enviarMensagem, MsgUploader.inserirImagemURL)
+
+
+// Rotas para Produto
+router.post('/produto', ProdutoController.criarProduto);
+
+router.get('/produtos', ProdutoController.selecionarTodosProdutos);
+
+router.get('/produto/:idProduto', ProdutoController.pegarProdutoPorId);
+
+router.get('/produto/vendedor/:idVendedor', ProdutoController.pegarProdutoPorIdVendedor);
+
+router.put('/produto/:id', ProdutoController.atualizarProduto);
+
+router.delete('/produto/:idProduto', ProdutoController.deletarProduto);
+
+// Rotas para Endereço
+
+router.post('/endereco', EnderecoController.criarEndereco);
+
+router.get('/enderecos', EnderecoController.pegarEnderecos);
+
+router.get('/enderecos/:idUsuario', EnderecoController.pegarEnderecoPorIdUsuario);
+
+router.put('/enderecos/:idUsuario', EnderecoController.atualizarEndereco);
+
+router.delete('/enderecos/:idUsuario', EnderecoController.deletarEndereco);
+
+// Rotas para Telefone
+
+router.post('/telefones', TelefoneController.criarTelefones);
+
+router.get('/telefones', TelefoneController.pegarTelefones);
+
+//router.get('/telefones/:idTelefones', TelefoneController.pegarTelefonesPorIdTelefones);
+
+router.get('/telefones/usuario/:idUsuario', TelefoneController.pegarTelefonesPorIdUsuario);
+
+router.put('/telefones/usuario/:idUsuario', TelefoneController.atualizarTelefones);
+
+router.delete('/telefones/usuario/:idUsuario', TelefoneController.deletarTelefones);
+
+
+// Rotas para compra
+
+router.post('/compra', CompraController.criarCompra);
+
+router.get('/compras', CompraController.pegarCompras);
+
+router.get('/compras/:idCompra', CompraController.pegarCompraPorId);
+
+router.put('/compras/:idCompra', CompraController.atualizarCompra);
+
+router.delete('/compras/:idCompra', CompraController.deletarCompra);
+
+
+//Rotas para avalia 
+
+//router.post('/avaliacao', AvaliaController.criarAvaliacao);
+
+router.get('/avaliacoes', AvaliaController.pegarAvaliacoes);
+
+router.get('/avaliacoes/:idCliente/:idProduto', AvaliaController.pegarAvaliacaoPorId);
+
+router.put('/avaliacoes/:idCliente/:idProduto', AvaliaController.atualizarAvaliacao);
+
+router.delete('/avaliacoes/:idCliente/:idProduto', AvaliaController.deletarAvaliacao);
+
+// Rotas para Mensagem
+router.post('/mensagem', mensagemController.criarMensagem);
+
+router.get('/mensagens', mensagemController.pegarMensagens);
+
+router.get('/mensagens/:idMensagem', mensagemController.pegarMensagemPorId);
+
+router.put('/mensagens/:idMensagem', mensagemController.atualizarMensagem);
+
+router.delete('/mensagens/:idMensagem', mensagemController.deletarMensagem);
+
+//Rotas para Conversa
+
+router.post('/conversa', ConversaController.criarConversa);
+
+router.get('/conversas', ConversaController.pegarConversas);
+
+router.get('/conversas/:idCliente/:idVendedor', ConversaController.pegarConversaPorId);
+
+router.put('/conversas/:idCliente/:idVendedor', ConversaController.atualizarConversa);
+
+router.delete('/conversas/:idCliente/:idVendedor', ConversaController.deletarConversa);
 
 export default router;
