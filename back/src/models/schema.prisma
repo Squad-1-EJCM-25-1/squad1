@@ -134,7 +134,7 @@ model Produto {
   nome          String              @db.VarChar(63)
   descricao     String?             @db.VarChar(120)
   preco         Decimal             @db.Money
-  categoria     Categoria?
+  categoria     String
   quantidade    Int
   imagemURL     String?
 
