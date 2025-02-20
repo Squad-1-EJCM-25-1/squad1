@@ -8,7 +8,30 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
 import { useRouter } from 'expo-router'
+import axios, { AxiosResponse } from 'axios';
 
+
+interface Usuario {
+  email: string,
+  senha: string
+}
+
+const rota = useRouter()
+
+const url = 'http://localhost:3333/login'
+
+const loginUsuario = async (usuario: Usuario) => {
+  console.log("Usuário que foi pra função: ", usuario)
+
+  axios.post<Usuario>(url, usuario).then((response: AxiosResponse<Usuario>) => {
+    console.log(response.data);
+    if (response.status == 200) {
+      rota.replace('(tabs)/home')
+    }
+  }).catch((erro) => {
+    console.log(erro);
+  });
+}
 
 const schema = yup.object({
   email: yup.string().email("Email Inválido").required("Informe seu email"),
@@ -21,13 +44,13 @@ const Login = () => {
     resolver: yupResolver(schema)
   })
 
-  const rota = useRouter()
+  const navegarParaCadastro = () => {
+    rota.push('cadastro')
+  }
 
-  const SubmeterFormulario = (data: any) => {
-    // useContext para passar informação 
-    console.log(data)
+  const SubmeterFormulario = (data: Usuario) => {
+    loginUsuario(data)
     reset()
-    rota.replace('(tabs)/home')
   }
 
   return (
@@ -85,7 +108,7 @@ const Login = () => {
           <Botao
             corDeFundo='laranja'
             texto='Cadastrar'
-            aoApertar={() => console.log("oi")} // apagar
+            aoApertar={navegarParaCadastro} // apagar
           />
         </BotaoContainer>
       </FormularioContainer>

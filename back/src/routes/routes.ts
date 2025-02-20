@@ -10,6 +10,10 @@ import CompraController from '../controllers/compraController';
 import AvaliaController from '../controllers/avaliaController';
 import mensagemController from '../controllers/mensagemController';
 import ConversaController from '../controllers/conversaController';
+import {verificarFidelidade} from '../middlewares/FidelidadeMiddleware';
+import CarrinhoController from '../controllers/carrinhoController';
+import PetController from '../controllers/petController';
+import VacinacaoController from '../controllers/vacinacaoController';
 
 
 
@@ -37,9 +41,11 @@ router.put("/usuario/:idUsuario", UsuarioController.atualizarUsuario);
 
 router.get("/usuario/:idUsuario", UsuarioController.obterUsuario);
 
+router.get("/usuario/:idUsuario", verificarFidelidade, UsuarioController.obterUsuario);
+
 router.get("/usuarios", UsuarioController.obterUsuarios)
 
-router.get("/login", UsuarioController.login);
+router.post("/login", UsuarioController.login);
 
 // imagens
 
@@ -55,7 +61,7 @@ router.post('/produto', ProdutoController.criarProduto);
 
 router.get('/produtos', ProdutoController.selecionarTodosProdutos);
 
-router.get('/produto/:idProduto', ProdutoController.pegarProdutoPorId);
+router.get('/produto/:id', ProdutoController.pegarProdutoPorId);
 
 router.get('/produto/vendedor/:idVendedor', ProdutoController.pegarProdutoPorIdVendedor);
 
@@ -137,5 +143,37 @@ router.get('/conversas/:idCliente/:idVendedor', ConversaController.pegarConversa
 router.put('/conversas/:idCliente/:idVendedor', ConversaController.atualizarConversa);
 
 router.delete('/conversas/:idCliente/:idVendedor', ConversaController.deletarConversa);
+
+// Rotas para Carrinho
+router.post('/carrinho', CarrinhoController.adicionarItem);
+
+router.get('/carrinho/:idCliente', CarrinhoController.obterItens);
+
+router.put('/carrinho/:idCliente/:idProduto', CarrinhoController.atualizarItem);
+
+router.delete('/carrinho/:idCliente/:idProduto', CarrinhoController.deletarItem);
+
+//Rotas para Pet
+
+router.post('/pet', PetController.criarPet);
+
+router.get('/pet/:idPet', PetController.obterPetPorId);
+
+router.get('/pets', PetController.obterPets);
+
+router.put('/pets/:idPet', PetController.atualizarPet);
+
+router.delete('/pet/:idPet', PetController.deletarPet);
+
+// Rotas pra Vacinação
+
+router.post('/vacinacao', VacinacaoController.criarVacinacao);
+
+router.get('/vacinas', VacinacaoController.obterTodasVacinas);
+
+router.put('/vacinacao/:idCliente/:idPet', VacinacaoController.atualizarvacinacao);
+
+router.delete('/vacinacao/:idPet/:idCLiente', VacinacaoController.deletarVacina);
+
 
 export default router;
