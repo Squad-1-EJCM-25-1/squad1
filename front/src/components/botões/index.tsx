@@ -2,7 +2,7 @@ import React from 'react'
 import { BotaoEstilizado, Texto } from './style'
 
 interface BotaoProps {
-    corDeFundo: 'amarelo' | 'laranja' | 'azul',
+    corDeFundo: 'amarelo' | 'laranja' | 'azul' | 'azulClaro',
     texto: string,
     aoApertar: () => void,
 }

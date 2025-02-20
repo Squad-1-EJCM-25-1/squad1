@@ -12,8 +12,19 @@ export const obterCarrinho = (): ProdutosItemProp[] => {
 
 export const adicionarAoCarrinho = (produto: ProdutosItemProp) => {
     const carrinho = obterCarrinho()
-    carrinho.push(produto)
-    armazenamento.set(CHAVE_CARRINHO, JSON.stringify(carrinho))
+
+    const existeNoCarrinho = carrinho.some(item => item.id === produto.id);
+
+    if (!existeNoCarrinho) {
+        carrinho.push(produto)
+        armazenamento.set(CHAVE_CARRINHO, JSON.stringify(carrinho))
+    }
+}
+
+export const RemoverItemDoCarrinho = (produto: ProdutosItemProp) => {
+    const carrinho = obterCarrinho()
+    const novoCarrinho = carrinho.filter(item => produto.id !== item.id)
+    armazenamento.set(CHAVE_CARRINHO, JSON.stringify(novoCarrinho))
 }
 
 export const limparCarrinho = () => {

@@ -27,7 +27,7 @@ const Login = () => {
     // useContext para passar informação 
     console.log(data)
     reset()
-    rota.replace('(tabs)')
+    rota.replace('(tabs)/home')
   }
 
   return (

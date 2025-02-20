@@ -26,12 +26,14 @@ export interface CarouselProps {
     tamanhoDoTitulo?: number,
     espacamentoEntreTituloEProduto?: number,
     pesoDaFonte?: number,
-    dados: any[]
+    dados: any[],
+    corDoTitulo?: string
 }
 
 export interface LocalizacaoProps {
     rua: string,
     numero: number,
     complemento: string,
-    botao: boolean
-} 
+    botao: boolean,
+    navegar: () => void
+}
