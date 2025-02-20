@@ -12,6 +12,9 @@ import mensagemController from '../controllers/mensagemController';
 import ConversaController from '../controllers/conversaController';
 import {verificarFidelidade} from '../middlewares/FidelidadeMiddleware';
 import CarrinhoController from '../controllers/carrinhoController';
+import PetController from '../controllers/petController';
+import VacinacaoController from '../controllers/vacinacaoController';
+
 
 
 //configs
@@ -149,5 +152,28 @@ router.get('/carrinho/:idCliente', CarrinhoController.obterItens);
 router.put('/carrinho/:idCliente/:idProduto', CarrinhoController.atualizarItem);
 
 router.delete('/carrinho/:idCliente/:idProduto', CarrinhoController.deletarItem);
+
+//Rotas para Pet
+
+router.post('/pet', PetController.criarPet);
+
+router.get('/pet/:idPet', PetController.obterPetPorId);
+
+router.get('/pets', PetController.obterPets);
+
+router.put('/pets/:idPet', PetController.atualizarPet);
+
+router.delete('/pet/:idPet', PetController.deletarPet);
+
+// Rotas pra Vacinação
+
+router.post('/vacinacao', VacinacaoController.criarVacinacao);
+
+router.get('/vacinas', VacinacaoController.obterTodasVacinas);
+
+router.put('/vacinacao/:idCliente/:idPet', VacinacaoController.atualizarvacinacao);
+
+router.delete('/vacinacao/:idPet/:idCLiente', VacinacaoController.deletarVacina);
+
 
 export default router;
