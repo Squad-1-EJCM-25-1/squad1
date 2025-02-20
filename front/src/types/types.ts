@@ -15,7 +15,7 @@ export interface BeneficioItemProp {
 export interface ProdutosItemProp {
     id: number,
     texto: string,
-    img: string,
+    img: ImageSourcePropType,
     preco: number
 }
 

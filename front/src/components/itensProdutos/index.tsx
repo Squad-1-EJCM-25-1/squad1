@@ -5,6 +5,7 @@ import BotaoBolinha from '../botaoBolinha'
 import { formatarPreco } from '../../utils/formatarPreco'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import { adicionarAoCarrinho } from '../../utils/carrinho'
+import { useRouter } from 'expo-router'
 
 const ItensProdutos = ({ texto, img, preco, id }: ProdutosItemProp) => {
 
@@ -19,8 +20,14 @@ const ItensProdutos = ({ texto, img, preco, id }: ProdutosItemProp) => {
         adicionarAoCarrinho(produto)
     }
 
+    const navegar = useRouter()
+
+    const navegarParaPaginaDoProduto = () => {
+        navegar.push(`(tabs)/home/${id}`)
+    }
+
     return (
-        <TouchableOpacity style={styles.Container}>
+        <TouchableOpacity style={styles.Container} onPress={navegarParaPaginaDoProduto}>
             <Imagem source={img} />
             <Informacoes>
                 <NomeDoProduto numberOfLines={1} ellipsizeMode="tail">
