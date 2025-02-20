@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ContainerInterativo, Preco, ProdutoContainer, Tela, NomeProduto, ImagemContainer, Imagem } from './style'
 import { Image } from 'react-native'
 import { formatarPreco } from '../../utils/formatarPreco'
@@ -6,13 +6,14 @@ import Botao from '../../components/botões'
 import BotaoContagem from '../../components/botaoContagem'
 import { adicionarAoCarrinho } from '../../utils/carrinho'
 import { ProdutosItemProp } from '../../types/types'
-
-// const adicionarElementoAoCarrinho = () => {
-//     adicionarAoCarrinho(produto)
-// }
+import Carousel from '../../components/Carousel'
+import axios from 'axios'
+import { useRouter } from 'expo-router'
 
 const PaginaDoProduto = (Produto: ProdutosItemProp) => {
 
+    const navegacao = useRouter()
+    const [dados, setDados] = useState<ProdutosItemProp[]>([])
     const [quantidade, setQuantidade] = useState(1)
 
     const adicionarUnidade = () => {
@@ -26,6 +27,19 @@ const PaginaDoProduto = (Produto: ProdutosItemProp) => {
             setQuantidade(quantidade - 1)
         }
     }
+
+    const adicionarElementoAoCarrinho = () => {
+        adicionarAoCarrinho(Produto)
+        navegacao.push('(tabs)/home/carrinho')
+    }
+
+    useEffect(() => {
+        axios.get<ProdutosItemProp[]>('https://localhost:3333/produtos').then(response => {
+            setDados(response.data)
+        }).catch(erro => {
+            console.log(erro)
+        })
+    }, [])
 
     return (
         <Tela>
@@ -56,7 +70,18 @@ const PaginaDoProduto = (Produto: ProdutosItemProp) => {
             <Botao
                 corDeFundo='amarelo'
                 texto='Adicionar ao carrinho'
-                aoApertar={() => { console.log('oi') }}
+                aoApertar={adicionarElementoAoCarrinho}
+            />
+
+            <Carousel
+                dados={dados}
+                tipo='Produtos'
+                espacamentoEntreItens={16}
+                corDoTitulo='#263238'
+                espacamentoEntreTituloEProduto={16}
+                pesoDaFonte={400}
+                tamanhoDoTitulo={16}
+                titulo='Que tal pedir também'
             />
         </Tela>
     )

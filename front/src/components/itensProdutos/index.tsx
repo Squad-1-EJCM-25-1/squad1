@@ -18,6 +18,7 @@ const ItensProdutos = ({ texto, img, preco, id }: ProdutosItemProp) => {
 
     const adicionarProdutoAoCarrinho = () => {
         adicionarAoCarrinho(produto)
+        navegar.push('(tabs)/home/carrinho')
     }
 
     const navegar = useRouter()
