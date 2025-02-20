@@ -23,9 +23,7 @@ const url = 'http://localhost:3333/login'
 const loginUsuario = async (usuario: Usuario) => {
   console.log("Usuário que foi pra função: ", usuario)
 
-  axios.post<Usuario>(url, usuario, {
-    headers: { 'Content-Type': 'application/json' }
-  }).then((response: AxiosResponse<Usuario>) => {
+  axios.post<Usuario>(url, usuario).then((response: AxiosResponse<Usuario>) => {
     console.log(response.data);
     if (response.status == 200) {
       rota.replace('(tabs)/home')
@@ -51,9 +49,7 @@ const Login = () => {
   }
 
   const SubmeterFormulario = (data: Usuario) => {
-    // useContext para passar informação 
     loginUsuario(data)
-    console.log(data)
     reset()
   }
 
