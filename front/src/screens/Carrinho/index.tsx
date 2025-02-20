@@ -3,7 +3,7 @@ import Logo from '../../components/logo'
 import Localizacao from '../../components/localizacao'
 import { NenhumElemento, Container, VoltarContainer, VoltarTexto } from './style'
 import BotaoBolinha from '../../components/botaoBolinha'
-import { useFocusEffect, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
 import { obterCarrinho } from '../../utils/carrinho'
 import { ProdutosItemProp } from '../../types/types'
 import ItensCarrinhoRenderizados from '../../components/ListaItensCarrinhoRedenrizados'
@@ -18,11 +18,14 @@ const Carrinho = () => {
         navegar.replace('(tabs)/home')
     }
 
-    useFocusEffect(
-        useCallback(() => {
-            setItensNoCarrinho(obterCarrinho)
-            console.log(itensNoCarrinho)
-        }, []))
+    const carregarCarrinho = useCallback(() => {
+        setItensNoCarrinho(obterCarrinho())
+        console.log('oi')
+    }, [])
+
+    useEffect(() => {
+        carregarCarrinho()
+    }, [carregarCarrinho])
 
     return (
         <>
@@ -60,7 +63,6 @@ const Carrinho = () => {
                     <NenhumElemento>Seu Carrinho está vazio...</NenhumElemento>
                     : <ItensCarrinhoRenderizados data={itensNoCarrinho} />
                 }
-
 
             </Container>
 
