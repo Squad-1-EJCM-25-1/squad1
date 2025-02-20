@@ -9,9 +9,25 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import CheckBox from '../../components/chekBox'
 import Botao from '../../components/botões'
+import axios, { AxiosResponse } from 'axios';
 
 import { useRouter } from 'expo-router'
 
+interface Usuario {
+    nome: string,
+    email: string,
+    cpf: string,
+    senha: string
+}
+
+const url = 'http://localhost:3333/usuario'
+
+const cadastrarUsuario = (usuario: Usuario) => {
+    console.log("Usuário que foi para a função: ", usuario)
+    axios.post<Usuario>(url, { nome: usuario.nome, email: usuario.email, senha: usuario.senha, cpf: usuario.cpf }).then((response: AxiosResponse<Usuario>) => {
+        console.log(response.data)
+    }).catch((erro) => { console.log(erro) })
+}
 
 const schema = yup.object({
     nome: yup.string().min(3, "Seu nome deve ter pelo menos 6 caracteres").required("Informe seu nome"),
@@ -30,8 +46,16 @@ const Cadastro = () => {
 
     const rota = useRouter()
 
-    const SubmeterFormulario = (data: any) => {
-        console.log(data)
+    //ajustar
+    const SubmeterFormulario = (data: Usuario) => {
+        const user = {
+            nome: data.nome,
+            email: data.email,
+            cpf: data.cpf,
+            senha: data.senha
+        }
+        console.log('Dados enviados no formulário: ', data)
+        cadastrarUsuario(user)
         reset()
         rota.replace('(tabs)/home')
     }

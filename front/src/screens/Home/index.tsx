@@ -6,7 +6,11 @@ import BeneficioDB from "../../data/beneficios"
 import CategoriaDB from "../../data/categoriasDeAnimais"
 import { useRouter } from "expo-router"
 import { ProdutosItemProp } from "../../types/types"
+import { useEffect } from "react"
+import axios, { AxiosResponse } from 'axios';
 
+
+// apagar
 const teste: ProdutosItemProp[] = [
     {
         id: 1,
@@ -15,6 +19,14 @@ const teste: ProdutosItemProp[] = [
         texto: 'Roupinha de cachorro'
     }
 ]
+
+const url = 'http://localhost:3333/produtos'
+
+useEffect(() => {
+    axios.get<ProdutosItemProp[]>(url).then((response: AxiosResponse<ProdutosItemProp[]>) => {
+        console.log(response.data)
+    }).catch((erro) => { console.log(erro) })
+}, [])
 
 
 const Home = () => {
