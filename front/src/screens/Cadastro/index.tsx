@@ -33,7 +33,7 @@ const Cadastro = () => {
     const SubmeterFormulario = (data: any) => {
         console.log(data)
         reset()
-        rota.replace('(tabs)')
+        rota.replace('(tabs)/home')
     }
 
     return (

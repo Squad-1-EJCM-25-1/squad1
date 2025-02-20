@@ -16,6 +16,7 @@ import PetController from '../controllers/petController';
 import VacinacaoController from '../controllers/vacinacaoController';
 
 
+
 //configs
 
 import { photoUpload } from '../config/uploader';
@@ -173,7 +174,6 @@ router.get('/vacinas', VacinacaoController.obterTodasVacinas);
 router.put('/vacinacao/:idCliente/:idPet', VacinacaoController.atualizarvacinacao);
 
 router.delete('/vacinacao/:idPet/:idCLiente', VacinacaoController.deletarVacina);
-
 
 
 export default router;

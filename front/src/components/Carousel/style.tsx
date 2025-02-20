@@ -4,6 +4,7 @@ interface Estilizacao {
     tamanhoDoTitulo: number,
     espacamentoEntreTituloEProduto: number;
     pesoDaFonte: number;
+    corDoTitulo: '#154962' | '#263238'
 }
 
 export const Container = styled.View`
@@ -18,8 +19,8 @@ export const Titulo = styled.Text`
     width: fit-content;
     font-size: ${({ tamanhoDoTitulo }: Estilizacao) => `${tamanhoDoTitulo}px`};
     font-style: normal;
-    font-weight: ${({ pesoDaFonte }: Estilizacao) => `${pesoDaFonte}px`};
-    color: #154962;
+    font-weight: ${({ pesoDaFonte }: Estilizacao) => `${pesoDaFonte}`};
+    color: ${({ corDoTitulo }: Estilizacao) => corDoTitulo ? corDoTitulo : '#154962'};
     border-bottom-width: 2px;
     border-bottom-color: #154962;
 `
