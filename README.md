@@ -15,7 +15,6 @@
  2. [Instalação](#instalação)
  3. [Configuração](#configuração)
  4. [Uso](#uso)
- 5. [Testes](#testes)
  6. [Arquitetura](#arquitetura)
  7. [Autores](#autores)
  
