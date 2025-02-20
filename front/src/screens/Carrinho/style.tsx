@@ -15,6 +15,7 @@ export const Container = styled.View`
     flex-direction: column;
     gap: 30px;
     background-color: #FFF;
+    position: relative;
 `
 export const VoltarContainer = styled.TouchableOpacity`
     position: relative;
@@ -31,4 +32,12 @@ export const VoltarTexto = styled.Text`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+`
+
+export const ContainerAbsoluto = styled.View`
+    width: fit-content;
+    position: fixed;
+    bottom: 67px;
+    left: 13.5%;
+    bottom: 15%;
 `

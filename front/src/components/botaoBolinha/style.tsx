@@ -13,8 +13,8 @@ export const BotaoEstilizado = styled.TouchableOpacity`
     align-items: center;
     justify-content: center;
     position: absolute;
-    right: ${({ direita }: BotaoProp) => `${direita}`};
-    top: ${({ topo }: BotaoProp) => `${topo}`};
+    right: ${({ direita }: BotaoProp) => `${direita}px`};
+    top: ${({ topo }: BotaoProp) => `${topo}px`};
     border-radius: 50%;
 `
 

@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import Logo from '../../components/logo'
 import Localizacao from '../../components/localizacao'
-import { NenhumElemento, Container, VoltarContainer, VoltarTexto } from './style'
+import { NenhumElemento, Container, VoltarContainer, VoltarTexto, ContainerAbsoluto } from './style'
 import BotaoBolinha from '../../components/botaoBolinha'
 import { useRouter } from 'expo-router'
 import { obterCarrinho } from '../../utils/carrinho'
 import { ProdutosItemProp } from '../../types/types'
 import ItensCarrinhoRenderizados from '../../components/ListaItensCarrinhoRedenrizados'
+import Botao from '../../components/botões'
 
 const Carrinho = () => {
 
@@ -18,14 +19,9 @@ const Carrinho = () => {
         navegar.replace('(tabs)/home')
     }
 
-    const carregarCarrinho = useCallback(() => {
-        setItensNoCarrinho(obterCarrinho())
-        console.log('oi')
-    }, [])
-
     useEffect(() => {
-        carregarCarrinho()
-    }, [carregarCarrinho])
+        setItensNoCarrinho(obterCarrinho());
+    }, []);
 
     return (
         <>
@@ -64,6 +60,15 @@ const Carrinho = () => {
                     : <ItensCarrinhoRenderizados data={itensNoCarrinho} />
                 }
 
+                {itensNoCarrinho.length > 0 &&
+                    <ContainerAbsoluto>
+                        <Botao
+                            aoApertar={() => { console.log('oi') }}
+                            corDeFundo='azulClaro'
+                            texto='Finalizar compra'
+                        />
+                    </ContainerAbsoluto>
+                }
             </Container>
 
         </>

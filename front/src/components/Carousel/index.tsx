@@ -16,7 +16,13 @@ const Carousel = (Props: CarouselProps) => {
             espacamentoEntreTituloEProduto={Props.espacamentoEntreTituloEProduto}
             pesoDaFonte={Props.pesoDaFonte}
         >
-            {Props.titulo && <Titulo>{Props.titulo}</Titulo>}
+            {Props.titulo &&
+                <Titulo
+                    tamanhoDoTitulo={Props.tamanhoDoTitulo}
+                    pesoDaFonte={Props.pesoDaFonte}
+                    corDoTitulo={Props.corDoTitulo}
+                >{Props.titulo}</Titulo>
+            }
             {Props.tipo === 'Beneficios' ?
                 <FlatList
                     data={Props.dados}

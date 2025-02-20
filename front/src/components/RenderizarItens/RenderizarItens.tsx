@@ -1,4 +1,4 @@
-import { CategoriaItemProp, BeneficioItemProp, ProdutosItemProp, CarrinhoItemProps } from "../../types/types"
+import { CategoriaItemProp, BeneficioItemProp, ProdutosItemProp } from "../../types/types"
 import ItensBeneficio from "../itensBeneficio"
 import ItensCarrinho from "../itensCarrinho"
 import ItensCategoria from "../itensCategorias"
@@ -36,7 +36,7 @@ export const RenderizarItemProdutos = ({ item }: { item: ProdutosItemProp }) => 
     )
 }
 
-export const RenderizarItemCarrinho = ({ item }: { item: CarrinhoItemProps }) => {
+export const RenderizarItemCarrinho = ({ item }: { item: ProdutosItemProp }) => {
     return (
         <ItensCarrinho
             id={item.id}

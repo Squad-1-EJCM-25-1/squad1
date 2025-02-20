@@ -43,12 +43,12 @@ const Home = () => {
                 />
 
                 <Carousel
-                    espacamentoEntreItens={32}
+                    espacamentoEntreItens={25}
                     titulo="Meus benefícios"
                     tipo="Beneficios"
                     espacamentoEntreTituloEProduto={28}
                     pesoDaFonte={600}
-                    tamanhoDoTitulo={15}
+                    tamanhoDoTitulo={14.8}
                     dados={BeneficioDB}
                 />
 
