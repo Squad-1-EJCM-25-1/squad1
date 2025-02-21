@@ -6,30 +6,38 @@ import BeneficioDB from "../../data/beneficios"
 import CategoriaDB from "../../data/categoriasDeAnimais"
 import { useRouter } from "expo-router"
 import { ProdutosItemProp } from "../../types/types"
-import { useEffect } from "react"
-import axios, { AxiosResponse } from 'axios';
-
-
-// apagar
-const teste: ProdutosItemProp[] = [
-    {
-        id: 1,
-        img: require('../../assets/cachorroTeste.png'),
-        preco: 100,
-        texto: 'Roupinha de cachorro'
-    }
-]
-
-const url = 'http://localhost:3333/produtos'
-
-useEffect(() => {
-    axios.get<ProdutosItemProp[]>(url).then((response: AxiosResponse<ProdutosItemProp[]>) => {
-        console.log(response.data)
-    }).catch((erro) => { console.log(erro) })
-}, [])
+import { useEffect, useState } from "react"
+import produtos from "../../data/produtos"
 
 
 const Home = () => {
+
+    const [racoes, setRacoes] = useState<ProdutosItemProp[]>([])
+    const [brinquedos, setBrinquedos] = useState<ProdutosItemProp[]>([])
+    const [farmacia, setFarmacia] = useState<ProdutosItemProp[]>([])
+    const [produtosRecomendados, setProdutosRecomendados] = useState<ProdutosItemProp[]>([])
+
+    useEffect(() => {
+        // Pegando os produtos recomendados 
+        const produtosRecomendados = produtos.filter((item) => item.recomendado === true)
+            .map(({ id, texto, preco, img }) => ({ id, texto, preco, img }))
+        setProdutosRecomendados(produtosRecomendados)
+
+        // Pegando os produtos de categoria "ração"
+        const racoes = produtos.filter((item) => item.categoria === 'racao')
+            .map(({ id, texto, preco, img }) => ({ id, texto, preco, img }))
+        setRacoes(racoes)
+
+        // Pegando os produtos de categoria "brinquedo"
+        const brinquedos = produtos.filter((item) => item.categoria === 'brinquedo')
+            .map(({ id, texto, preco, img }) => ({ id, texto, preco, img }))
+        setBrinquedos(brinquedos)
+
+        // Pegando os produtos de categoria "farmacia"
+        const farmacia = produtos.filter((item) => item.categoria === 'farmacia')
+            .map(({ id, texto, preco, img }) => ({ id, texto, preco, img }))
+        setFarmacia(farmacia)
+    }, [])
 
     const navegacao = useRouter()
 
@@ -71,17 +79,17 @@ const Home = () => {
                     espacamentoEntreTituloEProduto={30}
                     pesoDaFonte={700}
                     tamanhoDoTitulo={16}
-                    dados={teste}
+                    dados={produtosRecomendados}
                 />
 
-                {/* <Carousel
+                <Carousel
                     espacamentoEntreItens={20}
                     titulo="Rações"
                     tipo="Produtos"
                     espacamentoEntreTituloEProduto={13}
                     pesoDaFonte={700}
                     tamanhoDoTitulo={16}
-                    dados={ }
+                    dados={racoes}
                 />
 
                 <Carousel
@@ -91,7 +99,7 @@ const Home = () => {
                     espacamentoEntreTituloEProduto={13}
                     pesoDaFonte={700}
                     tamanhoDoTitulo={16}
-                    dados={ }
+                    dados={brinquedos}
                 />
 
                 <Carousel
@@ -101,8 +109,8 @@ const Home = () => {
                     espacamentoEntreTituloEProduto={13}
                     pesoDaFonte={700}
                     tamanhoDoTitulo={16}
-                    dados={ }
-                /> */}
+                    dados={farmacia}
+                />
             </Container>
         </>
     )
