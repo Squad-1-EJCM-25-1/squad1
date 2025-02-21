@@ -4,7 +4,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 
 const getImage = (img: string | undefined) => {
-    if (!img) return require("../../../src/assets/logo.png");
+    if (!img) return require("../../../src/assets/patasCaninas.png");
     return { uri: img };
 };
 

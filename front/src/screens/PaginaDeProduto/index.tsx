@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { ContainerInterativo, Preco, ProdutoContainer, Tela, NomeProduto, ImagemContainer, Imagem } from './style'
-import { Image } from 'react-native'
 import { formatarPreco } from '../../utils/formatarPreco'
 import Botao from '../../components/botões'
 import BotaoContagem from '../../components/botaoContagem'

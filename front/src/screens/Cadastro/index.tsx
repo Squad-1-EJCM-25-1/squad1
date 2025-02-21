@@ -17,7 +17,7 @@ interface Usuario {
     nome: string,
     email: string,
     cpf: string,
-    senha: string
+    senha: string,
 }
 
 const url = 'http://localhost:3333/usuario'
@@ -52,9 +52,8 @@ const Cadastro = () => {
             nome: data.nome,
             email: data.email,
             cpf: data.cpf,
-            senha: data.senha
+            senha: data.senha,
         }
-        console.log('Dados enviados no formulário: ', data)
         cadastrarUsuario(user)
         reset()
         rota.replace('(tabs)/home')
