@@ -5,6 +5,7 @@ export const Container = styled.TouchableOpacity`
     flex-direction: column;
     align-items: center;
     gap: 6px;
+    margin-bottom: 30px;
 `
 
 export const Imagem = styled.View`

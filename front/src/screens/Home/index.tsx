@@ -5,46 +5,38 @@ import Carousel from "../../components/Carousel"
 import BeneficioDB from "../../data/beneficios"
 import CategoriaDB from "../../data/categoriasDeAnimais"
 import { useRouter } from "expo-router"
-import { ProdutosItemProp, ProdutosPropsBack } from "../../types/types"
+import { ProdutosItemProp } from "../../types/types"
 import { useEffect, useState } from "react"
-import axios, { AxiosResponse } from 'axios';
+import produtos from "../../data/produtos"
 
-const url = 'http://localhost:3333/produtos'
 
 const Home = () => {
 
-    const [produtosDoBack, setProdutosDoBack] = useState<ProdutosPropsBack[]>([])
     const [racoes, setRacoes] = useState<ProdutosItemProp[]>([])
     const [brinquedos, setBrinquedos] = useState<ProdutosItemProp[]>([])
     const [farmacia, setFarmacia] = useState<ProdutosItemProp[]>([])
     const [produtosRecomendados, setProdutosRecomendados] = useState<ProdutosItemProp[]>([])
 
     useEffect(() => {
-        axios.get<ProdutosPropsBack[]>(url).then((response: AxiosResponse<ProdutosPropsBack[]>) => {
-            setProdutosDoBack(response.data)
+        // Pegando os produtos recomendados 
+        const produtosRecomendados = produtos.filter((item) => item.recomendado === true)
+            .map(({ id, texto, preco, img }) => ({ id, texto, preco, img }))
+        setProdutosRecomendados(produtosRecomendados)
 
-            const produtosSemCategoria = produtosDoBack.map(({ id, texto, preco, img }) => ({
-                id, texto, preco, img
-            }))
-            console.log(produtosSemCategoria) // apagar
+        // Pegando os produtos de categoria "ração"
+        const racoes = produtos.filter((item) => item.categoria === 'racao')
+            .map(({ id, texto, preco, img }) => ({ id, texto, preco, img }))
+        setRacoes(racoes)
 
-            // Pegando os produtos recomendados 
-            const produtosRecomendados = produtosDoBack.filter((item) => item.recomendado === true).map(({ id, texto, preco, img }) => ({ id, texto, preco, img }))
-            setProdutosRecomendados(produtosRecomendados)
+        // Pegando os produtos de categoria "brinquedo"
+        const brinquedos = produtos.filter((item) => item.categoria === 'brinquedo')
+            .map(({ id, texto, preco, img }) => ({ id, texto, preco, img }))
+        setBrinquedos(brinquedos)
 
-            // Pegando os produtos de categoria "ração"
-            const racoes = produtosDoBack.filter((item) => item.categoria === 'racao').map(({ id, texto, preco, img }) => ({ id, texto, preco, img }))
-            setRacoes(racoes)
-
-            // Pegando os produtos de categoria "brinquedo"
-            const brinquedos = produtosDoBack.filter((item) => item.categoria === 'brinquedo').map(({ id, texto, preco, img }) => ({ id, texto, preco, img }))
-            setBrinquedos(brinquedos)
-
-            // Pegando os produtos de categoria "farmacia"
-            const farmacia = produtosDoBack.filter((item) => item.categoria === 'farmacia').map(({ id, texto, preco, img }) => ({ id, texto, preco, img }))
-            setFarmacia(farmacia)
-
-        }).catch((erro) => { console.log(erro) })
+        // Pegando os produtos de categoria "farmacia"
+        const farmacia = produtos.filter((item) => item.categoria === 'farmacia')
+            .map(({ id, texto, preco, img }) => ({ id, texto, preco, img }))
+        setFarmacia(farmacia)
     }, [])
 
     const navegacao = useRouter()

@@ -1,46 +1,59 @@
-import PaginaDoProduto from "../../../src/screens/PaginaDeProduto"
-import { useLocalSearchParams } from 'expo-router'
-import axios from "axios"
-import { useEffect, useState } from "react"
+import PaginaDoProduto from "../../../src/screens/PaginaDeProduto";
+import { useLocalSearchParams } from 'expo-router';
+import { useEffect, useState } from "react";
+import produtos from "../../../src/data/produtos";
 
-const getImage = (img: string | undefined) => {
+import { ImageSourcePropType } from "react-native";
+
+
+const getImage = (img: ImageSourcePropType | undefined): ImageSourcePropType => {
     if (!img) return require("../../../src/assets/patasCaninas.png");
-    return { uri: img };
+
+    return img;
 };
 
 interface Produto {
-    id?: number,
-    nome?: string,
-    img?: string,
-    preco?: number,
-    recomendado: boolean,
-    categoria: string,
+    id: number,
+    texto: string,
+    img: ImageSourcePropType,
+    preco: number,
 }
 
 const PaginaProduto = () => {
+    const { id } = useLocalSearchParams();
+    const produtoId = Number(id);
 
-    const { id } = useLocalSearchParams()
-    const url = `https://localhost/produto/${id}`
+    const [produto, setProduto] = useState<Produto>({
+        id: 0,
+        texto: "Descrição não disponível",
+        img: getImage(undefined),
+        preco: 0,
+    });
 
-    const [produto, setProduto] = useState<Produto | null>(null)
     useEffect(() => {
-        if (!id) return;
+        const produtoEncontrado = produtos.find(item => item.id === produtoId);
 
-        axios.get(url).then(response => {
-            setProduto(response.data)
-        }).catch((erro) => {
-            console.log(erro)
-        })
-    }, [id])
+        if (produtoEncontrado) {
+            // Atualizando o estado com os dados encontrados
+            const produtoASerRenderizado: Produto = {
+                texto: produtoEncontrado.texto ?? "Descrição não disponível",
+                id: produtoEncontrado.id ?? 0,
+                img: getImage(produtoEncontrado.img), // Passando a imagem correta
+                preco: produtoEncontrado.preco ?? 0,
+            };
+
+            setProduto(produtoASerRenderizado);
+        }
+    }, [produtoId]);
 
     return (
         <PaginaDoProduto
-            id={produto?.id ?? 0}
-            img={getImage(produto?.img)}
-            preco={produto?.preco ?? 0}
-            texto={produto?.nome ?? "Descrição não disponível"}
+            id={produto.id}
+            img={produto.img} // Passando a imagem corretamente
+            preco={produto.preco}
+            texto={produto.texto}
         />
-    )
+    );
 }
 
-export default PaginaProduto
+export default PaginaProduto;

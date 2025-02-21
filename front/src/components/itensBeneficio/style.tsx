@@ -16,6 +16,7 @@ export const Container = styled.TouchableOpacity`
 
     border-radius: 20px;
     background-color: #EDA61A;
+    margin-bottom: 30px;
 `
 
 export const Imagem = styled.Image`

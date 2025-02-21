@@ -8,6 +8,7 @@ import { ProdutosItemProp } from '../../types/types'
 import Carousel from '../../components/Carousel'
 import axios from 'axios'
 import { useRouter } from 'expo-router'
+import produtos from '../../data/produtos'
 
 const PaginaDoProduto = (Produto: ProdutosItemProp) => {
 
@@ -73,7 +74,7 @@ const PaginaDoProduto = (Produto: ProdutosItemProp) => {
             />
 
             <Carousel
-                dados={dados}
+                dados={produtos}
                 tipo='Produtos'
                 espacamentoEntreItens={16}
                 corDoTitulo='#263238'
