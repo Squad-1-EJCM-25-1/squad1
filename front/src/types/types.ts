@@ -16,7 +16,16 @@ export interface ProdutosItemProp {
     id: number,
     texto: string,
     img: ImageSourcePropType,
-    preco: number
+    preco: number,
+}
+
+export interface ProdutosPropsBack {
+    id: number,
+    texto: string,
+    img: ImageSourcePropType,
+    preco: number,
+    categoria: string,
+    recomendado: boolean
 }
 
 export interface CarouselProps {

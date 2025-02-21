@@ -12,7 +12,9 @@ interface Produto {
     id?: number,
     nome?: string,
     img?: string,
-    preco?: number
+    preco?: number,
+    recomendado: boolean,
+    categoria: string,
 }
 
 const PaginaProduto = () => {
@@ -21,7 +23,6 @@ const PaginaProduto = () => {
     const url = `https://localhost/produto/${id}`
 
     const [produto, setProduto] = useState<Produto | null>(null)
-
     useEffect(() => {
         if (!id) return;
 

@@ -9,7 +9,6 @@ interface ItensCarrinhoRenderizadosProps {
 const ItensCarrinhoRenderizados = ({ data }: ItensCarrinhoRenderizadosProps) => {
     return (
         <FlatList
-            horizontal={false}
             data={data}
             renderItem={RenderizarItemCarrinho}
             showsVerticalScrollIndicator={false}

@@ -5,31 +5,47 @@ import Carousel from "../../components/Carousel"
 import BeneficioDB from "../../data/beneficios"
 import CategoriaDB from "../../data/categoriasDeAnimais"
 import { useRouter } from "expo-router"
-import { ProdutosItemProp } from "../../types/types"
-import { useEffect } from "react"
+import { ProdutosItemProp, ProdutosPropsBack } from "../../types/types"
+import { useEffect, useState } from "react"
 import axios, { AxiosResponse } from 'axios';
-
-
-// apagar
-const teste: ProdutosItemProp[] = [
-    {
-        id: 1,
-        img: require('../../assets/cachorroTeste.png'),
-        preco: 100,
-        texto: 'Roupinha de cachorro'
-    }
-]
 
 const url = 'http://localhost:3333/produtos'
 
-useEffect(() => {
-    axios.get<ProdutosItemProp[]>(url).then((response: AxiosResponse<ProdutosItemProp[]>) => {
-        console.log(response.data)
-    }).catch((erro) => { console.log(erro) })
-}, [])
-
-
 const Home = () => {
+
+    const [produtosDoBack, setProdutosDoBack] = useState<ProdutosPropsBack[]>([])
+    const [racoes, setRacoes] = useState<ProdutosItemProp[]>([])
+    const [brinquedos, setBrinquedos] = useState<ProdutosItemProp[]>([])
+    const [farmacia, setFarmacia] = useState<ProdutosItemProp[]>([])
+    const [produtosRecomendados, setProdutosRecomendados] = useState<ProdutosItemProp[]>([])
+
+    useEffect(() => {
+        axios.get<ProdutosPropsBack[]>(url).then((response: AxiosResponse<ProdutosPropsBack[]>) => {
+            setProdutosDoBack(response.data)
+
+            const produtosSemCategoria = produtosDoBack.map(({ id, texto, preco, img }) => ({
+                id, texto, preco, img
+            }))
+            console.log(produtosSemCategoria) // apagar
+
+            // Pegando os produtos recomendados 
+            const produtosRecomendados = produtosDoBack.filter((item) => item.recomendado === true).map(({ id, texto, preco, img }) => ({ id, texto, preco, img }))
+            setProdutosRecomendados(produtosRecomendados)
+
+            // Pegando os produtos de categoria "ração"
+            const racoes = produtosDoBack.filter((item) => item.categoria === 'racao').map(({ id, texto, preco, img }) => ({ id, texto, preco, img }))
+            setRacoes(racoes)
+
+            // Pegando os produtos de categoria "brinquedo"
+            const brinquedos = produtosDoBack.filter((item) => item.categoria === 'brinquedo').map(({ id, texto, preco, img }) => ({ id, texto, preco, img }))
+            setBrinquedos(brinquedos)
+
+            // Pegando os produtos de categoria "farmacia"
+            const farmacia = produtosDoBack.filter((item) => item.categoria === 'farmacia').map(({ id, texto, preco, img }) => ({ id, texto, preco, img }))
+            setFarmacia(farmacia)
+
+        }).catch((erro) => { console.log(erro) })
+    }, [])
 
     const navegacao = useRouter()
 
@@ -71,17 +87,17 @@ const Home = () => {
                     espacamentoEntreTituloEProduto={30}
                     pesoDaFonte={700}
                     tamanhoDoTitulo={16}
-                    dados={teste}
+                    dados={produtosRecomendados}
                 />
 
-                {/* <Carousel
+                <Carousel
                     espacamentoEntreItens={20}
                     titulo="Rações"
                     tipo="Produtos"
                     espacamentoEntreTituloEProduto={13}
                     pesoDaFonte={700}
                     tamanhoDoTitulo={16}
-                    dados={ }
+                    dados={racoes}
                 />
 
                 <Carousel
@@ -91,7 +107,7 @@ const Home = () => {
                     espacamentoEntreTituloEProduto={13}
                     pesoDaFonte={700}
                     tamanhoDoTitulo={16}
-                    dados={ }
+                    dados={brinquedos}
                 />
 
                 <Carousel
@@ -101,8 +117,8 @@ const Home = () => {
                     espacamentoEntreTituloEProduto={13}
                     pesoDaFonte={700}
                     tamanhoDoTitulo={16}
-                    dados={ }
-                /> */}
+                    dados={farmacia}
+                />
             </Container>
         </>
     )

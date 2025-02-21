@@ -10,7 +10,7 @@ export const NenhumElemento = styled.Text`
 `
 export const Container = styled.View`
     width: 100%;
-    height: 100%;
+    height: 83%;
     padding: 17px 24px;
     flex-direction: column;
     gap: 30px;
