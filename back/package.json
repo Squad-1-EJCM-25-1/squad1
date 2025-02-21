@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "prisma": {
-    "schema": "src/models/schema.prisma"
+    "schema": "src/models/schema.prisma",
+    "seed": "ts-node src/database/seeder.ts"
   },
   "scripts": {
     "start": "npx ts-node-dev --transpile-only --no-notify server.ts",
@@ -15,8 +16,11 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@faker-js/faker": "^9.5.0",
     "@prisma/client": "^6.3.1",
     "@types/express": "^5.0.0",
+    "@types/multer": "^1.4.12",
+    "@types/passport-jwt": "^4.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
@@ -26,8 +30,6 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
-    "@types/multer": "^1.4.12",
-    "@types/passport-jwt": "^4.0.1",
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
     "passport": "^0.7.0",

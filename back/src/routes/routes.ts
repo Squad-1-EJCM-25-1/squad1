@@ -44,7 +44,7 @@ router.get("/usuario/:idUsuario", verificarFidelidade, UsuarioController.obterUs
 
 router.get("/usuarios", UsuarioController.obterUsuarios)
 
-router.get("/login", UsuarioController.login);
+router.post("/login", UsuarioController.login);
 
 // imagens
 
